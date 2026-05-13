@@ -22,4 +22,11 @@ public class EmployeeAccessor
         var department = _context.Employees.Find(deptId);
         return department;
     }
+
+    public List<EmployeeEntity> FindByContaintsName(string keyword)
+    {
+        return _context.Employees
+            .Where(i => i.Name!.Contains(keyword))
+            .ToList();
+    }
 }

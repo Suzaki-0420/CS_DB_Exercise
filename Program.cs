@@ -9,21 +9,24 @@ class Program
         var accessor = new EmployeeAccessor(new AppDbContext());
         // すべての部署を取得する
 
-        Console.Write("部署Idを入力してください->");
-        int id = int.Parse(Console.ReadLine());
+        Console.Write("キーワードを入力してください->");
+        string keyword = Console.ReadLine();
 
         // 指定した部署Idの部署を取得する(存在する部署Id)
-        var department = accessor.FindByDeptId(id);//EnployeeAcessorのメソッド
+        var employee = accessor.FindByContaintsName(keyword);//EnployeeAcessorのメソッド
 
-        Console.WriteLine("演習-07 employeeテーブルから部署Idで該当社員を取得する");
+        Console.WriteLine("演習-08 employeeテーブルから社員名の部分一致検索で該当社員を取得する");
 
-        if (department == null)
+        if (employee.Count == 0)
         {
-            Console.WriteLine($"部署Id:{id}の部署に所属する社員は存在しません");
+            Console.WriteLine($"キーワード:{keyword}が含まれる社員は存在しません");
         }
         else
         {
-            Console.WriteLine(department!.ToString());
+            foreach (var e in employee)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
