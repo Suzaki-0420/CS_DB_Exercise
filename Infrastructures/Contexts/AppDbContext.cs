@@ -9,6 +9,7 @@ public class AppDbContext : DbContext
 
     public DbSet<DepartmentEntity> Departments { get; set; } = null!;
     public DbSet<EmployeeEntity> Employees { get; set; } = null!;
+    public DbSet<ItemEntity> Items { get; set; } = null!;
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

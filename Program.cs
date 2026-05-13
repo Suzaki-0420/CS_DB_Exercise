@@ -1,5 +1,6 @@
 ﻿using CS_DB_Sample.Infrastructures.Contexts;
 using CS_DB_Sample.Infrastructures.Accessors;
+using CS_DB_Sample.Infrastructures.Entities;
 namespace CS_DB_Exercise;
 
 class Program
@@ -7,26 +8,22 @@ class Program
     static void Main(string[] args)
     {
         var accessor = new EmployeeAccessor(new AppDbContext());
-        // すべての部署を取得する
 
-        Console.Write("キーワードを入力してください->");
-        string keyword = Console.ReadLine();
+        Console.Write("社員Idを入力してください->");
+        int id = int.Parse(Console.ReadLine());
 
-        // 指定した部署Idの部署を取得する(存在する部署Id)
-        var employee = accessor.FindByContaintsName(keyword);//EnployeeAcessorのメソッド
+        Console.WriteLine("演習-11 指定された社員Idの社員を削除する");
+        var employee = new EmployeeEntity { Id = id };
 
-        Console.WriteLine("演習-08 employeeテーブルから社員名の部分一致検索で該当社員を取得する");
-
-        if (employee.Count == 0)
+        employee = accessor.DeleteById(employee);
+        if (employee == null)
         {
-            Console.WriteLine($"キーワード:{keyword}が含まれる社員は存在しません");
+            Console.WriteLine($"社員Id:{id}の社員は存在しないため削除できませんでした");
         }
         else
         {
-            foreach (var e in employee)
-            {
-                Console.WriteLine(e);
-            }
+            Console.WriteLine($"社員Id:{id}の社員を削除しました");
         }
+
     }
 }

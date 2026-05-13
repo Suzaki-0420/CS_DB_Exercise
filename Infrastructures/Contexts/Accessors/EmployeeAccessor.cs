@@ -29,4 +29,40 @@ public class EmployeeAccessor
             .Where(i => i.Name!.Contains(keyword))
             .ToList();
     }
+
+    public EmployeeEntity Create(EmployeeEntity employee)
+    {
+        var department = _context.Departments.Find(employee.DeptId);//部署が存在するか確認
+        if (department == null)
+        {
+            return null; // 商品が見つからない場合はnullを返す
+        }
+        var result = _context.Employees.Add(employee);
+        _context.SaveChanges();
+        return result.Entity;
+    }
+
+    public EmployeeEntity UpdateById(EmployeeEntity employee)
+    {
+        var result = _context.Employees.Find(employee.Id);//部署が存在するか確認
+        if (result == null)
+        {
+            return null; // 商品が見つからない場合はnullを返す
+        }
+        result!.Name = employee.Name;
+        _context.SaveChanges();
+        return result;
+    }
+
+    public EmployeeEntity DeleteById(EmployeeEntity employee)
+    {
+        var result = _context.Employees.Find(employee.Id);
+        if (result == null)
+        {
+            return null; // 商品が見つからない場合はnullを返す
+        }
+        var delResult = _context.Employees.Remove(result);
+        _context.SaveChanges();
+        return result;
+    }
 }
